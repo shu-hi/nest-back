@@ -18,6 +18,9 @@ COPY --chown=node:node ./my-app/package*.json ./
 # package-lock.jsonに記載された依存関係をインストールしています。
 RUN npm ci
 RUN npm i -D @types/multer
+RUN npm install @supabase/supabase-js
+RUN npm install sharp
+RUN npm install @nestjs/config
 # アプリケーションのソースコードをコピーし、所有者をnodeユーザーとnodeグループに設定しています。
 COPY --chown=node:node . .
 

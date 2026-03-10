@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    container_name: nestJs
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./my-app:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5000:3000"
+    networks:
+      - nest-network
+    env_file:
+      - ./my-app/.env
+    entrypoint:
+      - /usr/bin/tini
+      - --
+    command: npm run start:dev
+  nginx:
+      image: nginx:latest
+      container_name: nginx-nest
+      ports:
+        - "80:80"
+      networks:
+      - nest-network
+      volumes:
+        - /home/ubuntu/NestJS/nginx.conf:/etc/nginx/conf.d/default.conf
+      depends_on:
+        - app
+networks:
+  nest-network:
+    external: true
