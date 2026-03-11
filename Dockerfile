@@ -27,11 +27,11 @@ RUN npm install @nestjs/config
 RUN npm install --save-dev @types/express
 # アプリケーションのソースコードをコピー
 COPY --chown=node:node ./my-app ./
-
-# TypeScriptコードをコンパイル（NestJSビルドコマンド）
-RUN npm run build
 # distディレクトリの権限をnodeユーザーに変更
 RUN chown -R node:node /usr/src/app/dist
+# TypeScriptコードをコンパイル（NestJSビルドコマンド）
+RUN npm run build
+
 # nodeユーザーとして実行
 USER node
 
