@@ -30,7 +30,8 @@ COPY --chown=node:node ./my-app ./
 
 # TypeScriptコードをコンパイル（NestJSビルドコマンド）
 RUN npm run build
-
+# distディレクトリの権限をnodeユーザーに変更
+RUN chown -R node:node /usr/src/app/dist
 # nodeユーザーとして実行
 USER node
 
