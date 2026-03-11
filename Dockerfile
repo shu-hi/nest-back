@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -qq install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # 環境変数NODE_ENVをdevelopmentに設定しています。
-ENV NODE_ENV development
+ENV NODE_ENV production
 
 # package.jsonとpackage-lock.jsonをコピーし、所有者をnodeユーザーとnodeグループに設定しています。
 COPY --chown=node:node ./my-app/package*.json ./
@@ -23,7 +23,7 @@ RUN npm install sharp
 RUN npm install @nestjs/config
 # アプリケーションのソースコードをコピーし、所有者をnodeユーザーとnodeグループに設定しています。
 COPY --chown=node:node . .
-
+RUN npm run build
 USER node
 ENTRYPOINT ["/usr/bin/tini","--"]
 
