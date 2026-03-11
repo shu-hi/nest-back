@@ -12,6 +12,7 @@ import sharp from 'sharp';
 import * as fs from 'fs';
 import * as crypto from 'crypto';
 import { url } from 'inspector';
+import { Express } from 'express';
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
