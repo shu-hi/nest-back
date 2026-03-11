@@ -4,4 +4,5 @@ nest new MyAppで作成
 githubでrepo作成
 localで
 git init
+git remote add origin
 git remote set-url origin <repoのsshのリンク>
