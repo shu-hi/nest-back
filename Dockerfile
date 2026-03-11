@@ -18,7 +18,7 @@ COPY --chown=node:node ./my-app/package*.json ./
 
 # 依存関係をインストール（npm ciでクリーンインストール）
 RUN npm ci
-RUN npm install --save-dev @nestjs/cli
+RUN npm install -g @nestjs/cli
 # 追加の依存関係をインストール（必要なパッケージを追加）
 RUN npm i -D @types/multer
 RUN npm install @supabase/supabase-js
