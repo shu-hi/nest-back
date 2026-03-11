@@ -24,7 +24,7 @@ RUN npm i -D @types/multer
 RUN npm install @supabase/supabase-js
 RUN npm install sharp
 RUN npm install @nestjs/config
-
+RUN npm install --save-dev @types/express
 # アプリケーションのソースコードをコピー
 COPY --chown=node:node ./my-app ./
 
