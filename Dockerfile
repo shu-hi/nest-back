@@ -31,7 +31,7 @@ COPY --chown=node:node ./my-app ./
 RUN chown -R node:node /usr/src/app
 # TypeScriptコードをコンパイル（NestJSビルドコマンド）
 RUN npm run build
-
+RUN chown -R node:node /usr/src/app/dist
 # nodeユーザーとして実行
 USER node
 
