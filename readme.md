@@ -7,7 +7,7 @@ pagenate: true
 classDiagram
     class AbstractHoloClass{
         <<abstract>>
-        +abstract store() Promise<{ hash: string, url: string }>
+        +abstract store() "Promise<{ hash: string, url: string }>"
     }
     class HoloFactory {
         +async create(files) Promise<AbstractHoloClass>
@@ -23,10 +23,10 @@ classDiagram
         +async getMedia() Express.Multer.File
     }
     class PicHoloClass{
-        +async store() Promise<{ hash: string, url: string }>
+        +async store() "Promise<{ hash: string, url: string }>"
     }
     class VidHoloClass{
-        +async store() Promise<{ hash: string, url: string }>
+        +async store() "Promise<{ hash: string, url: string }>"
     }
     AbstractHoloClass <|-- PicHoloClass : extends
     AbstractHoloClass <|-- VidHoloClass : extends
@@ -37,7 +37,7 @@ classDiagram
 classDiagram
     class ShowStrategy{
         <<interface>>
-        +show(url: string, hash: string) { url: string; media_type: number }
+        +show(url: string, hash: string) "{ url: string; media_type: number }"
     }
     class ShowHolo {
         -_url: string 
@@ -47,10 +47,10 @@ classDiagram
         +showMedia() strategy: ShowStrategy
     }
     class VideoStrategy{
-        show(url: string, hash: string) { url:string, media_type: number }
+        show(url: string, hash: string) "{ url:string, media_type: number }"
     }
     class PicStrategy{
-        show(url: string, hash: string) { url:string, media_type: number }
+        show(url: string, hash: string) "{ url:string, media_type: number }"
     }
     ShowStrategy <|-- VideoStrategy : implements
     ShowStrategy <|-- PicStrategy : implements
