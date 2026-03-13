@@ -8,6 +8,11 @@ async function bootstrap() {
     origin: 'http://localhost:4000', // フロントエンドの URL を指定
     methods: 'GET,POST,PUT,DELETE',  // 許可する HTTP メソッドを指定
     allowedHeaders: 'Content-Type, Authorization', // 許可するヘッダーを指定
+  }
+  ,{
+    origin: 'https://react-nu-pink.vercel.app', // フロントエンドの URL を指定
+    methods: 'GET,POST,PUT,DELETE',  // 許可する HTTP メソッドを指定
+    allowedHeaders: 'Content-Type, Authorization', // 許可するヘッダーを指定
   });
   await app.listen(process.env.PORT ?? 3000);
 }
