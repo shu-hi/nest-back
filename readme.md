@@ -1,8 +1,4 @@
----
-marp: true
-pagenate: true
 
----
 ```mermaid
 classDiagram
     class AbstractHoloClass{
