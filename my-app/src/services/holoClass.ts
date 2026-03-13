@@ -12,6 +12,7 @@ import sharp from 'sharp';
 import * as fs from 'fs';
 import * as crypto from 'crypto';
 import { url } from 'inspector';
+import { Express } from 'express';
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -56,9 +57,9 @@ export class HoloPics implements mediaComponent{
   async getMedia(){
     const width = 500;
     const height = 500;
-    const u = await sharp(this._uppic.buffer).resize(width, height).rotate(180).toBuffer();
+    const u = await sharp(this._uppic.buffer).resize(width, height).toBuffer();
     const r = await sharp(this._rightpic.buffer).resize(width, height).rotate(90).toBuffer();
-    const d = await sharp(this._downpic.buffer).resize(width, height).toBuffer();
+    const d = await sharp(this._downpic.buffer).resize(width, height).rotate(180).toBuffer();
     const l = await sharp(this._leftpic.buffer).resize(width, height).rotate(270).toBuffer();
     const buffer = await sharp({
       create: {
@@ -70,7 +71,7 @@ export class HoloPics implements mediaComponent{
     }).composite([
         { input: u, top: 0, left: width },
         { input: r, top: height, left: width*2 },
-        { input: d, top: height*2, left: 0 },
+        { input: d, top: height*2, left: width },
         { input: l, top: height, left: 0 },
       ])
       .png()
@@ -109,7 +110,7 @@ export class PicHoloClass extends AbstractHoloClass {
   }
 
   async store(): Promise<{ hash: string, url: string }> {
-    const hash = crypto.randomUUID();
+    const hash = generateShortHash();
     const path = `${hash}/${this.file.originalname}`;
     const { data, error } = await supabase.storage
       .from("media_storage")
@@ -236,5 +237,15 @@ export async function getMediaByHash(hash: string): Promise<{ url: string, media
     url: data.url,
     media_type: data.media_type,
   };
+}
+
+function generateShortHash(length = 6) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    const idx = Math.floor(Math.random() * chars.length);
+    result += chars[idx];
+  }
+  return result;
 }
 //-----------------------------------------------------------------------------------
